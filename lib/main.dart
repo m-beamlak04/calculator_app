@@ -36,6 +36,12 @@ class _CalculatorPageState extends State<CalculatorPage> {
     });
   }
 
+  void clearCalculator() {
+    setState(() {
+      display = '0';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,6 +63,16 @@ class _CalculatorPageState extends State<CalculatorPage> {
             padding: const EdgeInsets.all(12),
             child: Column(
               children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: clearCalculator,
+                        child: const Text('AC'),
+                      ),
+                    ),
+                  ],
+                ),
                 Row(
                   children: [
                     Expanded(
