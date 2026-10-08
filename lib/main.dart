@@ -25,20 +25,78 @@ class CalculatorPage extends StatefulWidget {
 
 class _CalculatorPageState extends State<CalculatorPage> {
   String display = '0';
+  double accumulator = 0;
+  String? pendingOperator;
+  bool awaitingOperand = false;
 
   void inputDigit(String digit) {
     setState(() {
-      if (display == '0') {
+      if (display == '0' || awaitingOperand) {
         display = digit;
+        awaitingOperand = false;
       } else {
         display += digit;
       }
     });
   }
 
+  void inputOperator(String operator) {
+    setState(() {
+      if (pendingOperator != null && !awaitingOperand) {
+        accumulator = calculate(
+          accumulator,
+          double.parse(display),
+          pendingOperator!,
+        );
+        display = accumulator.toString();
+      } else if (pendingOperator == null) {
+        accumulator = double.parse(display);
+      }
+
+      pendingOperator = operator;
+      awaitingOperand = true;
+    });
+  }
+
+  double calculate(double a, double b, String operator) {
+    switch (operator) {
+      case '+':
+        return a + b;
+      case '-':
+        return a - b;
+      case '×':
+        return a * b;
+      case '÷':
+        return a / b;
+      default:
+        return b;
+    }
+  }
+
+  void inputEquals() {
+    if (pendingOperator == null || awaitingOperand) {
+      return;
+    }
+
+    setState(() {
+      accumulator = calculate(
+        accumulator,
+        double.parse(display),
+        pendingOperator!,
+      );
+
+      display = accumulator.toString();
+      pendingOperator = null;
+      awaitingOperand = true;
+    });
+  }
+
   void clearCalculator() {
     setState(() {
       display = '0';
+      accumulator = 0;
+      pendingOperator = null;
+      awaitingOperand = false;
     });
   }
 
@@ -95,7 +153,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                     ),
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => inputOperator('÷'),
                         child: const Text('÷'),
                       ),
                     ),
@@ -123,7 +181,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                     ),
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => inputOperator('×'),
                         child: const Text('×'),
                       ),
                     ),
@@ -152,7 +210,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                     ),
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => inputOperator('-'),
                         child: const Text('-'),
                       ),
                     ),
@@ -169,13 +227,13 @@ class _CalculatorPageState extends State<CalculatorPage> {
                     ),
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => inputOperator('+'),
                         child: const Text('+'),
                       ),
                     ),
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: inputEquals,
                         child: const Text('='),
                       ),
                     ),
