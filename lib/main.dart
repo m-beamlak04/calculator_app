@@ -31,7 +31,12 @@ class _CalculatorPageState extends State<CalculatorPage> {
 
   void inputDigit(String digit) {
     setState(() {
-      if (display == '0' || awaitingOperand) {
+      if (display == 'Error') {
+        display = digit;
+        accumulator = 0;
+        pendingOperator = null;
+        awaitingOperand = false;
+      } else if (display == '0' || awaitingOperand) {
         display = digit;
         awaitingOperand = false;
       } else {
@@ -41,6 +46,10 @@ class _CalculatorPageState extends State<CalculatorPage> {
   }
 
   void inputOperator(String operator) {
+    if (display == 'Error') {
+      return;
+    }
+
     setState(() {
       if (pendingOperator != null && !awaitingOperand) {
         accumulator = calculate(
@@ -48,7 +57,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
           double.parse(display),
           pendingOperator!,
         );
-        display = accumulator.toString();
+        display = formatResult(accumulator);
       } else if (pendingOperator == null) {
         accumulator = double.parse(display);
       }
@@ -67,10 +76,25 @@ class _CalculatorPageState extends State<CalculatorPage> {
       case '×':
         return a * b;
       case '÷':
+        if (b == 0) {
+          return double.nan;
+        }
         return a / b;
       default:
         return b;
     }
+  }
+
+  String formatResult(double value) {
+    if (!value.isFinite) {
+      return 'Error';
+    }
+
+    if (value == value.truncateToDouble()) {
+      return value.toInt().toString();
+    }
+
+    return value.toString();
   }
 
   void inputEquals() {
@@ -85,7 +109,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
         pendingOperator!,
       );
 
-      display = accumulator.toString();
+      display = formatResult(accumulator);
       pendingOperator = null;
       awaitingOperand = true;
     });
