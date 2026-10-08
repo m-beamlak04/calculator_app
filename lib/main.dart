@@ -4,20 +4,41 @@ void main() {
   runApp(const CalculatorApp());
 }
 
-class CalculatorApp extends StatelessWidget {
+class CalculatorApp extends StatefulWidget {
   const CalculatorApp({super.key});
+
+  @override
+  State<CalculatorApp> createState() => _CalculatorAppState();
+}
+
+class _CalculatorAppState extends State<CalculatorApp> {
+  bool isDarkMode = false;
+
+  void toggleTheme() {
+    setState(() {
+      isDarkMode = !isDarkMode;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const CalculatorPage(),
+      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      home: CalculatorPage(onToggleTheme: toggleTheme),
     );
   }
 }
 
 class CalculatorPage extends StatefulWidget {
-  const CalculatorPage({super.key});
+  final VoidCallback onToggleTheme;
+
+  const CalculatorPage({
+    super.key,
+    required this.onToggleTheme,
+  });
 
   @override
   State<CalculatorPage> createState() => _CalculatorPageState();
@@ -127,7 +148,31 @@ class _CalculatorPageState extends State<CalculatorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Calculator')),
+      appBar: AppBar(
+        title: const Row(
+          children: [
+            Icon(Icons.calculate_outlined),
+            SizedBox(width: 8),
+            Text('Calculator'),
+          ],
+        ),
+        actions: [
+          TextButton.icon(
+            onPressed: widget.onToggleTheme,
+            icon: Icon(
+              Theme.of(context).brightness == Brightness.dark
+                  ? Icons.dark_mode
+                  : Icons.light_mode,
+            ),
+            label: Text(
+              Theme.of(context).brightness == Brightness.dark
+                  ? 'Dark'
+                  : 'Light',
+            ),
+          ),
+          const SizedBox(width: 8),
+        ],
+      ),
       body: Column(
         children: [
           Expanded(
