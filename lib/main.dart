@@ -35,15 +35,11 @@ class _CalculatorAppState extends State<CalculatorApp> {
 class CalculatorPage extends StatefulWidget {
   final VoidCallback onToggleTheme;
 
-  const CalculatorPage({
-    super.key,
-    required this.onToggleTheme,
-  });
+  const CalculatorPage({super.key, required this.onToggleTheme});
 
   @override
   State<CalculatorPage> createState() => _CalculatorPageState();
 }
-
 class _CalculatorPageState extends State<CalculatorPage> {
   String display = '0';
   double accumulator = 0;
