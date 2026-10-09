@@ -40,6 +40,7 @@ class CalculatorPage extends StatefulWidget {
   @override
   State<CalculatorPage> createState() => _CalculatorPageState();
 }
+
 class _CalculatorPageState extends State<CalculatorPage> {
   String display = '0';
   double accumulator = 0;
@@ -189,127 +190,139 @@ class _CalculatorPageState extends State<CalculatorPage> {
           ),
           Padding(
             padding: const EdgeInsets.all(12),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: clearCalculator,
-                        child: const Text('AC'),
-                      ),
-                    ),
-                  ],
+            child: ElevatedButtonTheme(
+              data: ElevatedButtonThemeData(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(0, 66),
+                  textStyle: const TextStyle(fontSize: 25),
+                  side: BorderSide(
+                    color: Theme.of(context).colorScheme.outline,
+                    width: .5,
+                  ),
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => inputDigit('7'),
-                        child: const Text('7'),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: clearCalculator,
+                          child: const Text('AC'),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => inputDigit('8'),
-                        child: const Text('8'),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => inputDigit('7'),
+                          child: const Text('7'),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => inputDigit('9'),
-                        child: const Text('9'),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => inputDigit('8'),
+                          child: const Text('8'),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => inputOperator('÷'),
-                        child: const Text('÷'),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => inputDigit('9'),
+                          child: const Text('9'),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => inputDigit('4'),
-                        child: const Text('4'),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => inputOperator('÷'),
+                          child: const Text('÷'),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => inputDigit('5'),
-                        child: const Text('5'),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => inputDigit('4'),
+                          child: const Text('4'),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => inputDigit('6'),
-                        child: const Text('6'),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => inputDigit('5'),
+                          child: const Text('5'),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => inputOperator('×'),
-                        child: const Text('×'),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => inputDigit('6'),
+                          child: const Text('6'),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => inputOperator('×'),
+                          child: const Text('×'),
+                        ),
+                      ),
+                    ],
+                  ),
 
-                Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => inputDigit('1'),
-                        child: const Text('1'),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => inputDigit('1'),
+                          child: const Text('1'),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => inputDigit('2'),
-                        child: const Text('2'),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => inputDigit('2'),
+                          child: const Text('2'),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => inputDigit('3'),
-                        child: const Text('3'),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => inputDigit('3'),
+                          child: const Text('3'),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => inputOperator('-'),
-                        child: const Text('-'),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => inputOperator('-'),
+                          child: const Text('-'),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
 
-                Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => inputDigit('0'),
-                        child: const Text('0'),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => inputDigit('0'),
+                          child: const Text('0'),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => inputOperator('+'),
-                        child: const Text('+'),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => inputOperator('+'),
+                          child: const Text('+'),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: inputEquals,
-                        child: const Text('='),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: inputEquals,
+                          child: const Text('='),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ],
