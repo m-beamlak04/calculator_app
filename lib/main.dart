@@ -195,25 +195,40 @@ class _CalculatorPageState extends State<CalculatorPage> {
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(0, 66),
                   textStyle: const TextStyle(fontSize: 25),
+                  foregroundColor: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black,
                   side: BorderSide(
-                    color: Theme.of(context).colorScheme.outline,
-                    width: .5,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.grey.shade700
+                        : Colors.grey.shade400,
+                    width: 0.5,
                   ),
                 ),
               ),
               child: Column(
+                spacing: 5,
                 children: [
                   Row(
+                    spacing: 5,
                     children: [
                       Expanded(
+                        flex: 3,
                         child: ElevatedButton(
                           onPressed: clearCalculator,
                           child: const Text('AC'),
                         ),
                       ),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => inputOperator('÷'),
+                          child: const Text('÷'),
+                        ),
+                      ),
                     ],
                   ),
                   Row(
+                    spacing: 5,
                     children: [
                       Expanded(
                         child: ElevatedButton(
@@ -235,13 +250,14 @@ class _CalculatorPageState extends State<CalculatorPage> {
                       ),
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () => inputOperator('÷'),
-                          child: const Text('÷'),
+                          onPressed: () => inputOperator('×'),
+                          child: const Text('×'),
                         ),
                       ),
                     ],
                   ),
                   Row(
+                    spacing: 5,
                     children: [
                       Expanded(
                         child: ElevatedButton(
@@ -263,14 +279,15 @@ class _CalculatorPageState extends State<CalculatorPage> {
                       ),
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () => inputOperator('×'),
-                          child: const Text('×'),
+                          onPressed: () => inputOperator('-'),
+                          child: const Text('−'),
                         ),
                       ),
                     ],
                   ),
 
                   Row(
+                    spacing: 5,
                     children: [
                       Expanded(
                         child: ElevatedButton(
@@ -292,25 +309,21 @@ class _CalculatorPageState extends State<CalculatorPage> {
                       ),
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () => inputOperator('-'),
-                          child: const Text('-'),
+                          onPressed: () => inputOperator('+'),
+                          child: const Text('+'),
                         ),
                       ),
                     ],
                   ),
 
                   Row(
+                    spacing: 5,
                     children: [
                       Expanded(
+                        flex: 3,
                         child: ElevatedButton(
                           onPressed: () => inputDigit('0'),
                           child: const Text('0'),
-                        ),
-                      ),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () => inputOperator('+'),
-                          child: const Text('+'),
                         ),
                       ),
                       Expanded(
