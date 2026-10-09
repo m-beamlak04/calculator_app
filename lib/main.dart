@@ -75,6 +75,11 @@ class _CalculatorPageState extends State<CalculatorPage> {
           pendingOperator!,
         );
         display = formatResult(accumulator);
+        if (display == 'Error') {
+          pendingOperator = null;
+          awaitingOperand = true;
+          return;
+        }
       } else if (pendingOperator == null) {
         accumulator = double.parse(display);
       }
