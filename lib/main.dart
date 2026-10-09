@@ -47,6 +47,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
   String? pendingOperator;
   bool awaitingOperand = false;
 
+  // Handles number input and starts a new entry when needed
   void inputDigit(String digit) {
     setState(() {
       if (display == 'Error') {
@@ -63,6 +64,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
     });
   }
 
+  // Processes operators and updates the running total from left to right
   void inputOperator(String operator) {
     if (display == 'Error') {
       return;
@@ -90,6 +92,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
     });
   }
 
+  // Performs arithmetic and handles division by zero
   double calculate(double a, double b, String operator) {
     switch (operator) {
       case '+':
@@ -108,6 +111,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
     }
   }
 
+  // Formats results and displays Error for invalid calculations
   String formatResult(double value) {
     if (!value.isFinite) {
       return 'Error';
@@ -120,6 +124,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
     return value.toString();
   }
 
+  // Calculates the final result only when both operands are available
   void inputEquals() {
     if (pendingOperator == null || awaitingOperand) {
       return;
@@ -195,7 +200,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(0, 66),
                   textStyle: const TextStyle(fontSize: 25),
-                  foregroundColor: Theme.of(context).brightness == Brightness.dark
+                  foregroundColor:
+                      Theme.of(context).brightness == Brightness.dark
                       ? Colors.white
                       : Colors.black,
                   side: BorderSide(
@@ -285,7 +291,6 @@ class _CalculatorPageState extends State<CalculatorPage> {
                       ),
                     ],
                   ),
-
                   Row(
                     spacing: 5,
                     children: [
@@ -315,7 +320,6 @@ class _CalculatorPageState extends State<CalculatorPage> {
                       ),
                     ],
                   ),
-
                   Row(
                     spacing: 5,
                     children: [
